@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CS:GO Case Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script type="module" src="./app.js"></script>
+
+<header>
+    <div class="logo">CS:GO <span>Case Simulator</span></div>
+    <div class="balance-display">
+        <span class="balance-label">Zůstatek:</span>
+        <span class="balance-value" id="balance-display">$0.00</span>
+    </div>
+</header>
+
+<main>
+    <!-- BEDNA -->
+    <section class="case-section">
+        <div class="case-card">
+            <span class="case-icon">📦</span>
+            <div class="case-name" id="case-name">Chroma Case</div>
+            <div class="case-price">Cena: <strong id="case-price">$0.00</strong></div>
+        </div>
+        <button class="btn-open" id="btn-open">Otevřít bednu</button>
+        <div id="last-drop">Otevři první bednu a uvidíš, co vypadne.</div>
+    </section>
+
+    <!-- INVENTÁŘ -->
+    <section>
+        <div class="inventory-header">
+            <div class="section-title">
+                Inventář <span class="count" id="inv-count">(0)</span>
+            </div>
+            <button class="btn-sell-all" id="btn-sell-all" disabled>Prodat vše</button>
+        </div>
+        <div class="inventory-grid" id="inventory-grid">
+            <div class="empty-state">
+                Inventář je prázdný – otevři bednu!
+            </div>
+        </div>
+    </section>
+</main>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>

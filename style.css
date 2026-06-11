@@ -1,0 +1,326 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg:        #0b0f14;
+    --surface:   #131920;
+    --card:      #1a2230;
+    --border:    #243040;
+    --text:      #cdd6e0;
+    --muted:     #5a6a7a;
+    --accent:    #f0a843;
+
+    --rarity-consumer:   #b0c3d9;
+    --rarity-industrial: #5e98d9;
+    --rarity-milspec:    #4b69ff;
+    --rarity-restricted: #8847ff;
+    --rarity-classified: #d32ce6;
+    --rarity-covert:     #eb4b4b;
+    --rarity-special:    #e4ae39;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: orange;
+}
+.logo span { color: white; }
+
+.balance-display {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    background: rgb(48, 47, 47);
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: .4rem .9rem;
+}
+.balance-label {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: grey;
+}
+.balance-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: orange;
+    font-variant-numeric: tabular-nums;
+}
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+.case-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+}
+
+.case-card {
+    width: 220px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem 1.25rem 1.25rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.case-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(240,168,67,.06) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.case-icon {
+    font-size: 3.2rem;
+    line-height: 1;
+    margin-bottom: .75rem;
+    display: block;
+}
+
+.case-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: .06em;
+    color: #fff;
+    margin-bottom: .3rem;
+}
+
+.case-price {
+    font-size: .8rem;
+    color: grey;
+}
+.case-price strong {
+    color: orange;
+}
+
+.btn-open {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #0c1118;
+    border: none;
+    border-radius: 6px;
+    padding: .65rem 2rem;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+}
+.btn-open:hover  { background: #f8bb5a; }
+.btn-open:active { transform: scale(.97); }
+.btn-open:disabled {
+    background: black;
+    color: orange;
+    cursor: not-allowed;
+}
+
+#last-drop {
+    min-height: 2rem;
+    font-size: .85rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+.inventory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.section-title .count {
+    color: var(--text);
+    margin-left: .35rem;
+}
+
+.btn-sell-all {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: .35rem .8rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+}
+.btn-sell-all:hover { color: var(--text); border-color: var(--muted); }
+.btn-sell-all:disabled { opacity: .35; cursor: not-allowed; }
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: .75rem;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--muted);
+    font-size: .85rem;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+}
+.empty-state .empty-icon { font-size: 2rem; margin-bottom: .5rem; display: block; }
+
+.item-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem .9rem .8rem;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    position: relative;
+    overflow: hidden;
+    animation: popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+
+.item-card::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--rarity-color, var(--muted));
+    border-radius: 8px 0 0 8px;
+}
+.item-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.item-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.item-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+    margin-top: .1rem;
+}
+
+.badge {
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    padding: .15rem .4rem;
+}
+.badge-rarity {
+    background: rgba(var(--rarity-rgb, 90,106,122), .18);
+    color: var(--rarity-color, var(--muted));
+    border: 1px solid rgba(var(--rarity-rgb, 90,106,122), .35);
+}
+.badge-stattrak {
+    background: rgba(207,106,50,.18);
+    color: #cf6a32;
+    border: 1px solid rgba(207,106,50,.35);
+}
+.badge-wear {
+    background: rgba(255,255,255,.05);
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+
+.wear-bar-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: .1rem;
+}
+.wear-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--rarity-color, var(--muted));
+    opacity: .7;
+}
+
+.item-prices {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: .2rem;
+}
+.price-base   { font-size: .7rem; color: var(--muted); }
+.price-sell   {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--accent);
+}
+
+.btn-sell-item {
+    margin-top: .35rem;
+    width: 100%;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: .8rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: .3rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
+}
+.btn-sell-item:hover {
+    color: #fff;
+    border-color: var(--accent);
+    background: rgba(240,168,67,.07);
+}
